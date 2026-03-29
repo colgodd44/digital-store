@@ -20,7 +20,7 @@ function SuccessContent() {
           Payment Successful!
         </h1>
         <p className="text-slate-600 mb-6">
-          Thank you for your purchase. Your digital downloads are ready.
+          Thank you for your purchase. Your PDF files will be sent to your email.
         </p>
 
         {isDemo ? (
@@ -52,12 +52,12 @@ function SuccessContent() {
           href="/"
           className="inline-flex items-center gap-2 bg-green-500 text-white px-6 py-3 rounded-xl font-semibold hover:bg-green-600 transition-colors"
         >
-          Continue Shopping
+          Browse More Files
           <ArrowRight className="w-5 h-5" />
         </Link>
 
         <p className="text-xs text-slate-500 mt-6">
-          Questions? Contact support@digitalstore.com
+          Your PDF files will be delivered to your email within minutes.
         </p>
       </div>
     </main>

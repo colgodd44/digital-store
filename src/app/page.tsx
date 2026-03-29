@@ -37,13 +37,13 @@ export default function Home() {
       <section className="bg-gradient-to-r from-green-500 to-emerald-600 text-white py-16">
         <div className="max-w-7xl mx-auto px-4 text-center">
           <h1 className="text-4xl md:text-5xl font-bold mb-4">
-            Premium Digital Downloads
+            Premium Digital Files
           </h1>
           <p className="text-xl text-green-100 mb-2">
-            Instant downloads • Lifetime access • Professionally designed
+            Instant Download • PDF Guides • Templates • eBooks
           </p>
           <p className="text-3xl font-bold text-white">
-            All products just £6 each!
+            All files just £6 each!
           </p>
         </div>
       </section>
@@ -55,7 +55,7 @@ export default function Home() {
             <div className="relative w-full md:w-96">
               <input
                 type="text"
-                placeholder="Search products..."
+                placeholder="Search files..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="w-full px-4 py-3 pl-12 rounded-xl border border-slate-200 focus:border-green-500 focus:ring-2 focus:ring-green-200 outline-none"
@@ -63,7 +63,7 @@ export default function Home() {
               <Filter className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
             </div>
             <div className="flex items-center gap-2 text-sm text-slate-600">
-              <span>{filteredProducts.length} products</span>
+              <span>{filteredProducts.length} files</span>
             </div>
           </div>
 
@@ -148,7 +148,7 @@ export default function Home() {
 
           {filteredProducts.length === 0 && (
             <div className="text-center py-16">
-              <p className="text-xl text-slate-500">No products found matching your search.</p>
+              <p className="text-xl text-slate-500">No files found matching your search.</p>
             </div>
           )}
         </div>
@@ -157,17 +157,17 @@ export default function Home() {
       {/* Footer */}
       <footer className="bg-slate-900 text-white py-12">
         <div className="max-w-7xl mx-auto px-4 text-center">
-          <h3 className="text-xl font-bold mb-2">DigitalStore</h3>
-          <p className="text-slate-400 mb-6">Premium digital downloads for everyone</p>
+          <h3 className="text-xl font-bold mb-2">Digital Files Store</h3>
+          <p className="text-slate-400 mb-6">Premium PDF guides, templates & eBooks</p>
           <div className="flex justify-center gap-8 text-sm text-slate-400">
             <span>Secure payments via Stripe</span>
             <span>•</span>
-            <span>Instant download</span>
+            <span>Instant download to your email</span>
             <span>•</span>
             <span>Lifetime access</span>
           </div>
           <p className="text-slate-500 text-sm mt-8">
-            © 2026 DigitalStore. All rights reserved.
+            © 2026 Digital Files Store. All rights reserved.
           </p>
         </div>
       </footer>

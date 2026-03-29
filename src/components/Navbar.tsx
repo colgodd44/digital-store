@@ -16,8 +16,8 @@ export default function Navbar() {
               <Store className="w-6 h-6 text-white" />
             </div>
             <div>
-              <span className="text-xl font-bold text-slate-900">DigitalStore</span>
-              <span className="text-xs text-slate-500 block">Premium Downloads</span>
+              <span className="text-xl font-bold text-slate-900">Digital Files</span>
+              <span className="text-xs text-slate-500 block">PDF Guides & Templates</span>
             </div>
           </Link>
 

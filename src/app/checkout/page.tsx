@@ -92,7 +92,7 @@ export default function CheckoutPage() {
 
         {/* Order Items */}
         <div className="bg-white rounded-xl p-6 shadow-sm mb-6">
-          <h2 className="font-semibold text-slate-900 mb-4">Order Items</h2>
+          <h2 className="font-semibold text-slate-900 mb-4">Your Files</h2>
           <div className="space-y-3">
             {items.map((item) => (
               <div key={item.id} className="flex items-center justify-between text-sm">
@@ -112,7 +112,7 @@ export default function CheckoutPage() {
 
         {/* Customer Info */}
         <div className="bg-white rounded-xl p-6 shadow-sm mb-6">
-          <h2 className="font-semibold text-slate-900 mb-4">Contact Information</h2>
+          <h2 className="font-semibold text-slate-900 mb-4">Your Details</h2>
           <div className="space-y-4">
             <div>
               <label className="block text-sm font-medium text-slate-700 mb-1">
@@ -122,7 +122,7 @@ export default function CheckoutPage() {
                 type="text"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                placeholder="John Smith"
+                placeholder="Your name"
                 className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-green-500 focus:ring-2 focus:ring-green-200 outline-none"
               />
             </div>
@@ -134,7 +134,7 @@ export default function CheckoutPage() {
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                placeholder="john@example.com"
+                placeholder="your@email.com"
                 className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-green-500 focus:ring-2 focus:ring-green-200 outline-none"
               />
               <p className="text-xs text-slate-500 mt-1">

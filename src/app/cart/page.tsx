@@ -15,13 +15,13 @@ export default function CartPage() {
             <ShoppingBag className="w-12 h-12 text-slate-400" />
           </div>
           <h1 className="text-2xl font-bold text-slate-900 mb-2">Your cart is empty</h1>
-          <p className="text-slate-500 mb-6">Start shopping to add items to your cart</p>
+          <p className="text-slate-500 mb-6">Browse our digital files and add to cart</p>
           <Link
             href="/"
             className="inline-flex items-center gap-2 bg-green-500 text-white px-6 py-3 rounded-xl font-semibold hover:bg-green-600 transition-colors"
           >
             <ArrowLeft className="w-5 h-5" />
-            Browse Products
+            Browse Files
           </Link>
         </div>
       </main>
@@ -45,7 +45,7 @@ export default function CartPage() {
               </div>
               <div className="flex-1">
                 <h3 className="font-semibold text-slate-900">{item.name}</h3>
-                <p className="text-sm text-slate-500">Digital Download</p>
+                <p className="text-sm text-slate-500">Digital PDF File</p>
               </div>
               <div className="text-right">
                 <p className="font-bold text-slate-900">£{item.price}.00</p>
