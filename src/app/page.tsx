@@ -3,12 +3,13 @@
 import { useState } from 'react'
 import { PRODUCTS, CATEGORIES } from '@/lib/products'
 import { useCart } from '@/lib/cart'
-import { Plus, Check, Filter } from 'lucide-react'
+import { Plus, Check, Filter, X, Eye, FileText, Download, Clock, Star } from 'lucide-react'
 
 export default function Home() {
   const [selectedCategory, setSelectedCategory] = useState('All')
   const [searchQuery, setSearchQuery] = useState('')
   const [addedItems, setAddedItems] = useState<number[]>([])
+  const [previewFile, setPreviewFile] = useState<typeof PRODUCTS[0] | null>(null)
   const { addItem } = useCart()
 
   const filteredProducts = PRODUCTS.filter(product => {
@@ -119,28 +120,37 @@ export default function Home() {
                     {product.description}
                   </p>
 
-                  {/* Add to Cart Button */}
-                  <button
-                    onClick={() => handleAddToCart(product)}
-                    disabled={addedItems.includes(product.id)}
-                    className={`w-full py-3 rounded-xl font-semibold transition-all flex items-center justify-center gap-2 ${
-                      addedItems.includes(product.id)
-                        ? 'bg-green-100 text-green-700'
-                        : 'bg-green-500 text-white hover:bg-green-600'
-                    }`}
-                  >
-                    {addedItems.includes(product.id) ? (
-                      <>
-                        <Check className="w-5 h-5" />
-                        Added!
-                      </>
-                    ) : (
-                      <>
-                        <Plus className="w-5 h-5" />
-                        Add to Cart
-                      </>
-                    )}
-                  </button>
+                  {/* Buttons */}
+                  <div className="flex gap-2">
+                    <button
+                      onClick={() => setPreviewFile(product)}
+                      className="flex-1 py-3 rounded-xl font-semibold transition-all flex items-center justify-center gap-2 bg-slate-100 text-slate-700 hover:bg-slate-200"
+                    >
+                      <Eye className="w-5 h-5" />
+                      Preview
+                    </button>
+                    <button
+                      onClick={() => handleAddToCart(product)}
+                      disabled={addedItems.includes(product.id)}
+                      className={`flex-1 py-3 rounded-xl font-semibold transition-all flex items-center justify-center gap-2 ${
+                        addedItems.includes(product.id)
+                          ? 'bg-green-100 text-green-700'
+                          : 'bg-green-500 text-white hover:bg-green-600'
+                      }`}
+                    >
+                      {addedItems.includes(product.id) ? (
+                        <>
+                          <Check className="w-5 h-5" />
+                          Added!
+                        </>
+                      ) : (
+                        <>
+                          <Plus className="w-5 h-5" />
+                          Add
+                        </>
+                      )}
+                    </button>
+                  </div>
                 </div>
               </div>
             ))}
@@ -153,6 +163,104 @@ export default function Home() {
           )}
         </div>
       </section>
+
+      {/* Preview Modal */}
+      {previewFile && (
+        <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
+          <div className="bg-white rounded-3xl max-w-lg w-full max-h-[90vh] overflow-y-auto">
+            {/* Modal Header */}
+            <div className="sticky top-0 bg-white p-6 border-b border-slate-100 flex items-center justify-between">
+              <span className="px-3 py-1 bg-green-100 text-green-700 text-sm font-medium rounded-full">
+                {previewFile.category}
+              </span>
+              <button
+                onClick={() => setPreviewFile(null)}
+                className="p-2 hover:bg-slate-100 rounded-full transition-colors"
+              >
+                <X className="w-6 h-6 text-slate-500" />
+              </button>
+            </div>
+
+            {/* Modal Content */}
+            <div className="p-6">
+              {/* File Preview */}
+              <div className="h-48 bg-gradient-to-br from-slate-100 to-slate-50 rounded-2xl flex items-center justify-center mb-6">
+                <span className="text-8xl">{previewFile.image}</span>
+              </div>
+
+              <h2 className="text-2xl font-bold text-slate-900 mb-2">
+                {previewFile.name}
+              </h2>
+              <p className="text-3xl font-bold text-green-600 mb-4">£{previewFile.price}</p>
+
+              <p className="text-slate-600 mb-6 leading-relaxed">
+                {previewFile.description}
+              </p>
+
+              {/* What's Included */}
+              <div className="bg-slate-50 rounded-xl p-4 mb-6">
+                <h3 className="font-semibold text-slate-900 mb-3">What's Included:</h3>
+                <ul className="space-y-2 text-sm text-slate-600">
+                  <li className="flex items-center gap-2">
+                    <FileText className="w-4 h-4 text-green-500" />
+                    PDF format (downloadable)
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <Clock className="w-4 h-4 text-green-500" />
+                    Instant download to your email
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <Star className="w-4 h-4 text-green-500" />
+                    Lifetime access
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <Download className="w-4 h-4 text-green-500" />
+                    Compatible with all devices
+                  </li>
+                </ul>
+              </div>
+
+              {/* Preview Note */}
+              <div className="bg-blue-50 border border-blue-100 rounded-xl p-4 mb-6">
+                <p className="text-sm text-blue-700">
+                  <strong>Preview:</strong> This is a sample of what you'll receive. The full PDF will be sent to your email after purchase.
+                </p>
+                <div className="mt-3 text-xs text-blue-600 space-y-1">
+                  <p>• Introduction & overview</p>
+                  <p>• Table of contents</p>
+                  <p>• First 2-3 pages of content</p>
+                </div>
+              </div>
+
+              {/* Add to Cart */}
+              <button
+                onClick={() => {
+                  handleAddToCart(previewFile)
+                  setPreviewFile(null)
+                }}
+                disabled={addedItems.includes(previewFile.id)}
+                className={`w-full py-4 rounded-xl font-bold text-lg transition-all flex items-center justify-center gap-2 ${
+                  addedItems.includes(previewFile.id)
+                    ? 'bg-green-100 text-green-700'
+                    : 'bg-green-500 text-white hover:bg-green-600'
+                }`}
+              >
+                {addedItems.includes(previewFile.id) ? (
+                  <>
+                    <Check className="w-6 h-6" />
+                    Added to Cart!
+                  </>
+                ) : (
+                  <>
+                    <Plus className="w-6 h-6" />
+                    Add to Cart - £{previewFile.price}
+                  </>
+                )}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Footer */}
       <footer className="bg-slate-900 text-white py-12">
