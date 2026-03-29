@@ -6,8 +6,8 @@ import { useCart } from '@/lib/cart'
 import { ArrowLeft, Lock, CreditCard } from 'lucide-react'
 import { loadStripe } from '@stripe/stripe-js'
 
-// Replace with your Stripe publishable key
-const stripePromise = loadStripe('pk_test_YOUR_STRIPE_PUBLISHABLE_KEY')
+// Your Stripe publishable key
+const stripePromise = loadStripe('pk_live_51TBNFg3L8L69H38KGtJcLOV52CL61xqW83VdqSWfiQdYSufeKHI61wjY5ayC8TekGWA0S8619NXBAEtSmhZ06f7L00JlKPxTSf')
 
 export default function CheckoutPage() {
   const { items, total, clearCart } = useCart()
@@ -40,8 +40,6 @@ export default function CheckoutPage() {
     setError('')
 
     try {
-      // In production, you would call your backend to create a Stripe session
-      // For demo, we'll show a success message
       const response = await fetch('/api/checkout', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -49,7 +47,7 @@ export default function CheckoutPage() {
           items: items.map(item => ({
             id: item.id,
             name: item.name,
-            price: item.price * 100, // Convert to pence
+            price: item.price * 100, // Price in pence
           })),
           email,
           name,
@@ -60,20 +58,21 @@ export default function CheckoutPage() {
         throw new Error('Checkout failed')
       }
 
-      // For demo purposes, redirect to success page
-      // In production, you would use Stripe Checkout:
-      // const { sessionId } = await response.json()
-      // const stripe = await stripePromise
-      // if (stripe) {
-      //   await stripe.redirectToCheckout({ sessionId })
-      // }
+      const { url, error } = await response.json()
       
-      clearCart()
-      window.location.href = '/success?demo=true'
-    } catch (err) {
-      // For demo purposes, redirect to success page
-      clearCart()
-      window.location.href = '/success?demo=true'
+      if (error) {
+        throw new Error(error)
+      }
+
+      if (url) {
+        // Redirect to Stripe Checkout
+        window.location.href = url
+      } else {
+        throw new Error('No checkout URL returned')
+      }
+    } catch (err: any) {
+      setError(err.message || 'Payment failed')
+      setIsProcessing(false)
     }
   }
 

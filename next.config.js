@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: 'export',
+  // Remove 'export' to enable Vercel serverless functions for Stripe
   images: {
     unoptimized: true,
   },
